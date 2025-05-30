@@ -12,15 +12,25 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^20.0.1",
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/forms": "^20.0.0",
+    "@angular/material": "^20.0.1",
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "axios": "^1.9.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/device": "^7.0.1",
+    "@capacitor/filesystem": "^7.0.1",
+    "@capacitor/ios": "^7.2.0",
+    "@capacitor/share": "^7.0.1"
   },
   "devDependencies": {
     "@angular/build": "^20.0.0",
@@ -28,13 +38,13 @@
     "@angular/compiler-cli": "^20.0.0",
     "@cypress/schematic": "^3.0.0",
     "@types/jasmine": "~5.1.0",
+    "cypress": "latest",
     "jasmine-core": "~5.7.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2",
-    "cypress": "latest"
+    "typescript": "~5.8.2"
   }
 }
