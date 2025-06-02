@@ -10,6 +10,9 @@
   <mat-card *ngIf="info.platform === 'mac'" color="accent">
     macOS-specific UI
   </mat-card>
+  <mat-card *ngIf="info.platform === 'web'" color="accent">
+    web-specific UI
+  </mat-card>
 
   <!-- Action Buttons -->
   <div class="button-group mt-4">
