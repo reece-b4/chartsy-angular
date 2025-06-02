@@ -4,22 +4,22 @@
   <h2 class="mat-title">JENKINS TEST 6</h2>
 
   <!-- Device-specific UI -->
-  <mat-card *ngIf="info.platform === 'ios'" color="primary">
+  <p *ngIf="info.platform === 'ios'" color="primary">
     iPhone/iPad-specific UI
-  </mat-card>
-  <mat-card *ngIf="info.platform === 'mac'" color="accent">
+  </p>
+  <p *ngIf="info.platform === 'mac'" color="accent">
     macOS-specific UI
-  </mat-card>
-  <mat-card *ngIf="info.platform === 'web'" color="accent">
+  </p>
+  <p *ngIf="info.platform === 'web'" color="accent">
     web-specific UI
-  </mat-card>
+  </p>
 
   <!-- Action Buttons -->
-  <div class="button-group mt-4">
+  <div class="button-group my-4">
     <button mat-raised-button color="primary" (click)="shareFile()" class="mr-2">
       Write tasks to file
     </button>
-    <button mat-raised-button color="accent" (click)="readFile()" class="mr-2">
+    <button mat-raised-button disabled color="accent" (click)="readFile()" class="mr-2">
       Read tasks File
     </button>
     <button mat-raised-button color="warn" (click)="postTaskItem()">
@@ -28,9 +28,7 @@
   </div>
 
   <mat-divider class="my-4"></mat-divider>
-
-  <p><strong>Read content:</strong> {{ fileContent }}</p>
-  <p>Tasks count: {{ tasks.length }}</p>
+  <p>Task count: {{ tasks.length }}</p>
 
   <!-- Task list -->
   <mat-accordion *ngIf="tasks.length">

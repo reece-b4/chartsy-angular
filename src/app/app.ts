@@ -3,7 +3,7 @@ import { getAllTasks, postTask } from '@/api';
 import { Device } from '@capacitor/device';
 import { Share } from '@capacitor/share';
 import { RouterOutlet } from '@angular/router';
-import { Task, TaskInput, Tasks } from '@/chartsyBE-types/';
+import { TaskInput, Tasks } from '@/chartsyBE-types/';
 // import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { materialImports } from '@/app/ui.imports'; // Adjust the import path as necessary
