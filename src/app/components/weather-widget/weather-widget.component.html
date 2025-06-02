@@ -1,0 +1,13 @@
+<!-- <p>weather-widget works!</p>
+  --><div class="bg-white p-6 rounded shadow text-gray-800">
+  <h2 class="text-xl font-bold mb-4">🌤 Current Weather</h2>
+
+  <div *ngIf="loading">Getting your weather...</div>
+  <div *ngIf="error" class="text-red-600">{{ error }}</div>
+
+  <div *ngIf="weather">
+    <p>🌡 Temperature: {{ weather.temperature }}°C</p>
+    <p>💨 Wind: {{ weather.windspeed }} km/h</p>
+    <p>🧭 Direction: {{ weather.winddirection }}°</p>
+  </div>
+</div>

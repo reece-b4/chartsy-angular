@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherWidgetComponent } from '@/app/components/weather-widget/weather-widget.component';
 import { getAllTasks, postTask } from '@/api';
 import { Device } from '@capacitor/device';
 import { Share } from '@capacitor/share';
@@ -13,7 +14,7 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, ...materialImports],
+  imports: [RouterOutlet, CommonModule, ...materialImports, WeatherWidgetComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   standalone: true,
@@ -87,7 +88,7 @@ async readFile(): Promise<void> {
   async postTaskItem(): Promise<void> {
     try {
       const task: TaskInput = {
-        title: 'Task new',
+        title: 'monday june 2nd demo task',
         description: 'new posted task' + this.counter,
         status: 'complete',
         due: '2026-10-01T09:00:00.000Z',
