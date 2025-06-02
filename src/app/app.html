@@ -1,48 +1,67 @@
 <main class="main">
-<!-- app.component.html -->
-<ng-container *ngIf="info">
-  <h2 class="mat-title">JENKINS TEST 6</h2>
+  <!-- app.component.html -->
+  <ng-container *ngIf="info">
+    <h2 class="mat-title">JENKINS TEST 6</h2>
 
-  <!-- Device-specific UI -->
-  <p *ngIf="info.platform === 'ios'" color="primary">
-    iPhone/iPad-specific UI
-  </p>
-  <p *ngIf="info.platform === 'mac'" color="accent">
-    macOS-specific UI
-  </p>
-  <p *ngIf="info.platform === 'web'" color="accent">
-    web-specific UI
-  </p>
+    <!-- Device-specific UI -->
+    <p *ngIf="info.platform === 'ios'" color="primary">
+      iPhone/iPad-specific UI
+    </p>
+    <p *ngIf="info.platform === 'mac'" color="accent">macOS-specific UI</p>
+    <p *ngIf="info.platform === 'web'" color="accent">web-specific UI</p>
 
-  <!-- Action Buttons -->
-  <div class="button-group my-4">
-    <button mat-raised-button color="primary" (click)="shareFile()" class="mr-2">
-      Write tasks to file
-    </button>
-    <button mat-raised-button disabled color="accent" (click)="readFile()" class="mr-2">
-      Read tasks File
-    </button>
-    <button mat-raised-button color="warn" (click)="postTaskItem()">
-      Post dummy task
-    </button>
-  </div>
+    <!-- Action Buttons -->
+    <div class="button-group my-4">
+      <button mat-raised-button color="primary" (click)="shareFile()">
+        Write tasks to file
+      </button>
+      <button mat-raised-button disabled color="accent" (click)="readFile()">
+        Read tasks File
+      </button>
+      <button mat-raised-button color="warn" (click)="postTaskItem()">
+        Post dummy task
+      </button>
+    </div>
 
-  <mat-divider class="my-4"></mat-divider>
-  <p>Task count: {{ tasks.length }}</p>
+    <div class="button-group my-4">
+      <button mat-raised-button color="primary" (click)="getCurrentLocation()">
+        Get Location
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="takePhoto()"
+        [disabled]="info?.platform === 'web'"
+      >
+        Take Photo
+      </button>
+    </div>
 
-  <!-- Task list -->
-  <mat-accordion *ngIf="tasks.length">
-    <mat-expansion-panel *ngFor="let task of tasks; trackBy: trackByTaskId">
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ task.title }}</mat-panel-title>
-        <mat-panel-description>{{ task.status }}</mat-panel-description>
-      </mat-expansion-panel-header>
+    <div *ngIf="imageDataUrl" class="mt-4">
+      <h3>Preview:</h3>
+      <img
+        [src]="imageDataUrl"
+        alt="Captured photo"
+        style="max-width: 100%; border: 1px solid #ccc"
+      />
+    </div>
 
-      <p>{{ task.description }}</p>
-      <p><strong>Priority:</strong> {{ task.priority }}</p>
-      <p><strong>Tags:</strong> {{ task.tags.join(', ') }}</p>
-    </mat-expansion-panel>
-  </mat-accordion>
-</ng-container>
+    <mat-divider class="my-4"></mat-divider>
+    <p>Task count: {{ tasks.length }}</p>
+
+    <!-- Task list -->
+    <mat-accordion *ngIf="tasks.length">
+      <mat-expansion-panel *ngFor="let task of tasks; trackBy: trackByTaskId">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ task.title }}</mat-panel-title>
+          <mat-panel-description>{{ task.status }}</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>{{ task.description }}</p>
+        <p><strong>Priority:</strong> {{ task.priority }}</p>
+        <p><strong>Tags:</strong> {{ task.tags.join(', ') }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
 </main>
 <router-outlet />

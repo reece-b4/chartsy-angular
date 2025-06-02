@@ -4,9 +4,11 @@ import { Device } from '@capacitor/device';
 import { Share } from '@capacitor/share';
 import { RouterOutlet } from '@angular/router';
 import { TaskInput, Tasks } from '@/chartsyBE-types/';
-// import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { materialImports } from '@/app/ui.imports'; // Adjust the import path as necessary
+import { materialImports } from '@/app/ui.imports';
+import { Capacitor } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-root',
@@ -63,8 +65,6 @@ export class App implements OnInit {
         due: '2026-10-01T09:00:00.000Z',
         priority: 'high',
         tags: ['pensions', 'documentation'],
-        // created_at: '2025-05-01T13:53:37.650Z',
-        // updated_at: null,
       };
 
       this.counter++;
@@ -79,7 +79,46 @@ export class App implements OnInit {
     }
   }
 
-  trackByTaskId(index: number, task: any): number {
+  trackByTaskId(_index: number, task: any): number {
     return task.id;
   }
+
+  async getCurrentLocation(): Promise<void> {
+  try {
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current location:', coordinates.coords);
+    alert(`Lat: ${coordinates.coords.latitude}, Lng: ${coordinates.coords.longitude}`);
+  } catch (error) {
+    console.error('Error getting location:', error);
+    alert('Failed to get location: ' + error);
+  }
+}
+
+
+imageDataUrl: string | null = null;
+
+async takePhoto(): Promise<void> {
+  console.log('takePhoto() clicked');
+
+  try {
+    const isNative = Capacitor.isNativePlatform(); 
+
+    const source: CameraSource = isNative
+      ? CameraSource.Camera 
+      : CameraSource.Photos; 
+
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source,
+    });
+
+    this.imageDataUrl = image.dataUrl!;
+    console.log('Image captured:', this.imageDataUrl);
+  } catch (error: any) {
+    console.error('Camera error:', error);
+    alert('Camera error: ' + (error?.message || error));
+  }
+}
 }
