@@ -9,6 +9,7 @@ import { materialImports } from '@/app/ui.imports';
 import { Capacitor } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +22,10 @@ export class App implements OnInit {
   tasks: Tasks = [];
   info: { platform: string } | null = null;
   filename: string = 'tasks.txt';
-  fileContent: string = '';
+  fileContent: any = null;
+  error: string | null = null;
   counter: number = 0;
+  readfileAvailable = false;
 
   async ngOnInit(): Promise<void> {
     try {
@@ -48,12 +51,37 @@ export class App implements OnInit {
         dialogTitle: 'save your file',
       });
       alert('File written!');
+      this.readfileAvailable = true;
     } catch (e) {
       alert('Error sharing file: ' + e);
     }
   }
-  readFile() {
-    // not yet implemented
+
+
+async readFile(): Promise<void> {
+    try {
+      const filePicker = document.createElement('input');
+      filePicker.type = 'file';
+      filePicker.accept = '.json,.txt,.log'; // or '*' for all types
+
+      filePicker.onchange = async () => {
+        const file = filePicker.files?.[0];
+        if (!file) return;
+
+        const text = await file.text();
+
+        try {
+          this.fileContent = JSON.parse(text);
+        } catch (err) {
+          this.error = 'Invalid JSON format.';
+          this.fileContent = text;
+        }
+      };
+
+      filePicker.click();
+    } catch (err) {
+      this.error = 'Unable to open file: ' + (err as any)?.message;
+    }
   }
 
   async postTaskItem(): Promise<void> {

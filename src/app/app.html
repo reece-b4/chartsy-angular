@@ -1,7 +1,7 @@
 <main class="main">
   <!-- app.component.html -->
   <ng-container *ngIf="info">
-    <h2 class="mat-title">JENKINS TEST 6</h2>
+    <h1 class="mat-title mt-[2rem] mb-2">Tasksy</h1>
 
     <!-- Device-specific UI -->
     <p *ngIf="info.platform === 'ios'" color="primary">
@@ -11,30 +11,44 @@
     <p *ngIf="info.platform === 'web'" color="accent">web-specific UI</p>
 
     <!-- Action Buttons -->
-    <div class="button-group my-4">
+    <div
+      :class="button-group my-4 flex w-full justify-center {{info.platform === 'ios' ? 'flex-col' : 'flex-row'}}"
+    >
+      <!-- info.platform === 'ios' ? 'flex-col' : 'flex-row' -->
       <button mat-raised-button color="primary" (click)="shareFile()">
         Write tasks to file
       </button>
-      <button mat-raised-button disabled color="accent" (click)="readFile()">
+      <button
+        mat-raised-button
+        [disabled]="info.platform === 'web' || !readfileAvailable"
+        color="accent"
+        (click)="readFile()"
+      >
         Read tasks File
       </button>
       <button mat-raised-button color="warn" (click)="postTaskItem()">
         Post dummy task
       </button>
-    </div>
-
-    <div class="button-group my-4">
       <button mat-raised-button color="primary" (click)="getCurrentLocation()">
         Get Location
       </button>
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="takePhoto()"
-        [disabled]="info?.platform === 'web'"
-      >
-        Take Photo
-      </button>
+      <div class="relative flex items-center justify-center">
+        <p
+          *ngIf="info.platform === 'web'"
+          class="absolute top-[-1.7rem] w-[10rem]"
+        >
+          not available on web
+        </p>
+        <button
+          class="w-full"
+          mat-raised-button
+          color="accent"
+          (click)="takePhoto()"
+          [disabled]="info.platform === 'web'"
+        >
+          Take Photo
+        </button>
+      </div>
     </div>
 
     <div *ngIf="imageDataUrl" class="mt-4">
@@ -46,11 +60,16 @@
       />
     </div>
 
+    <div *ngIf="fileContent" class="mt-4">
+      <h3>file content:</h3>
+      {{ fileContent | json }}
+    </div>
+
     <mat-divider class="my-4"></mat-divider>
     <p>Task count: {{ tasks.length }}</p>
 
     <!-- Task list -->
-    <mat-accordion *ngIf="tasks.length">
+    <mat-accordion *ngIf="tasks.length" class="mb-4">
       <mat-expansion-panel *ngFor="let task of tasks; trackBy: trackByTaskId">
         <mat-expansion-panel-header>
           <mat-panel-title>{{ task.title }}</mat-panel-title>
